@@ -39,7 +39,7 @@ public class loginController implements Serializable {
             try {
                 FacesContext.getCurrentInstance()
                         .getExternalContext()
-                        .redirect("CrudContactos.xhtml");
+                        .redirect(".xhtml");
             } catch (IOException e) {
                 logger.error("Error al redirigir", e);
             }
@@ -62,7 +62,7 @@ public class loginController implements Serializable {
                                 "¡Bienvenido!",
                                 "Has iniciado sesión correctamente"));
 
-                return "crud_contactos.xhtml?faces-redirect=true";
+                return ".xhtml?faces-redirect=true";
 
             } else {
                 logger.warn("Login fallido para: " + nombreUsuario);

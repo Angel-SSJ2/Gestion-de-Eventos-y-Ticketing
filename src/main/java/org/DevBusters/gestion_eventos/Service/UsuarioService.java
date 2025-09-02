@@ -5,6 +5,7 @@ import org.DevBusters.gestion_eventos.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
 @Service
 public class UsuarioService implements IUsuarioService {
 
@@ -12,8 +13,8 @@ public class UsuarioService implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public Usuario autenticar(String nombreUsuario, String contrasena) {
-        Optional<Usuarios> usuario = usuarioRepository.findByUsernameAndContraseña(username, contraseña);
+    public Usuarios autenticar(String nombreUsuario, String contrasena) {
+        Optional<Usuarios> usuario = usuarioRepository.findByUsernameAndContraseña(nombreUsuario, contrasena);
         return usuario.orElse(null);
     }
 
@@ -26,12 +27,12 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public Usuario crearUsuario(Usuario usuario) {
         // Validar que no exista el username
-        if (usuarioRepository.existsByUsername(usuario.getUsername())) {
+        if (usuarioRepository.existsByUsername(usuario.getnombreUsuario())) {
             throw new RuntimeException("El username ya existe");
         }
 
         // Validar que no exista el email
-        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+        if (usuarioRepository.existsByEmail(usuario.getcorreo())) {
             throw new RuntimeException("El email ya está registrado");
         }
 
@@ -39,12 +40,12 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
-    public boolean existeUsername(String username) {
-        return usuarioRepository.existsByUsername(username);
+    public boolean existeUsername(String nombreUsuario) {
+        return usuarioRepository.existsByUsername(nombreUsuario);
     }
 
     @Override
-    public boolean existeEmail(String email) {
-        return usuarioRepository.existsByEmail(email);
+    public boolean existeEmail(String correo) {
+        return usuarioRepository.existsByEmail(correo);
     }
 }
