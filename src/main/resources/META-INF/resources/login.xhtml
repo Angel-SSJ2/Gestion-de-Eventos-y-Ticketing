@@ -110,7 +110,7 @@
                 <div class="field-container">
                     <p:outputLabel for="contraseña" value="Contraseña:" styleClass="font-weight-bold"/>
                     <p:password id="contraseña"
-                                value="#{loginController.contraseña}"
+                                value="#{loginController.contrasena}"
                                 required="true"
                                 requiredMessage="La contraseña es obligatoria"
                                 styleClass="input-field"
@@ -123,17 +123,10 @@
                                  update="messages"
                                  process="@form"/>
 
-                <p:commandButton value="← Volver al Inicio"
-                                 onclick="window.location.href='/'; return false;"
+                <p:commandButton value="Registrarse"
+                                 onclick="window.location.href='/Registro.xhtml'; return false;"
                                  styleClass="back-button"
                                  type="button"/>
-
-                <!-- Información para demo/pruebas -->
-                <div class="demo-info">
-                    <strong>💡 Datos de prueba:</strong><br/>
-                    Usuario: <strong>admin</strong><br/>
-                    Contraseña: <strong>123456</strong>
-                </div>
             </h:form>
         </div>
     </h:body>
