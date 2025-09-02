@@ -52,7 +52,7 @@ public class loginController implements Serializable {
         try {
             Usuarios usuario = usuarioService.autenticar(nombreUsuario, contrasena);
 
-            if (usuario != null && usuario.getActivo()) {
+            if (usuario != null) {
                 // Usa la instancia inyectada
                 gestorInicioSesion.iniciarSesion(usuario);
                 logger.info("Login exitoso para: " + nombreUsuario);
