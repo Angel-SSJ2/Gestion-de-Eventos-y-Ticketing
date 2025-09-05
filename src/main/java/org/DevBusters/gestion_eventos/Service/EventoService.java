@@ -1,4 +1,7 @@
 package org.DevBusters.gestion_eventos.Service;
 
-public class EventoService {
+import org.springframework.stereotype.Service;
+
+@Service
+public class EventoService implements IEventoService{
 }
