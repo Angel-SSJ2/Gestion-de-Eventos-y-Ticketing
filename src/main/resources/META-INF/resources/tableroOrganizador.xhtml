@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Eventos del Organizador</title>
+    <style>
+        .titulo-tabla {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th,
+        .data-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: #f0f0f0;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h:outputText value="Eventos del Organizador" styleClass="titulo-tabla" />
+
+        <h:dataTable value="#{eventoController.eventosOrganizador}" var="e" styleClass="data-table">
+
+            <!-- Columna: Nombre del Evento -->
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Evento" />
+                </f:facet>
+                <h:outputText value="#{e.nombreEvento}" />
+            </h:column>
+
+            <!-- Columna: Tickets Vendidos -->
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Tickets Vendidos" />
+                </f:facet>
+                <h:outputText value="#{eventoController.obtenerTicketsVendidos(e.idEvento)}" />
+            </h:column>
+
+        </h:dataTable>
+    </h:form>
+</h:body>
+</html>
