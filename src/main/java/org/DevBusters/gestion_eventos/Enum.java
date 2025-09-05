@@ -1,4 +1,8 @@
 package org.DevBusters.gestion_eventos;
 
-public class Enum {
+public enum Enum {
+    VENDIDO,
+    USADO,
+    DISPONIBLE,
+
 }
