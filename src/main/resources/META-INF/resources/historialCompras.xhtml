@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+<h:head>
+    <title>Historial de Tickets</title>
+    <style>
+        .titulo-tabla {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            display: block;
+        }
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .data-table th,
+        .data-table td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        .data-table th {
+            background-color: #f5f5f5;
+        }
+    </style>
+</h:head>
+
+<h:body>
+    <h:form>
+        <h:panelGroup layout="block">
+            <h:outputText value="Historial de Tickets" styleClass="titulo-tabla" />
+
+            <h:dataTable value="#{ticketController.historialUsuario}" var="t" styleClass="data-table">
+
+                <!-- Columna: Evento -->
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Evento" />
+                    </f:facet>
+                    <h:outputText value="#{t.evento.nombreEvento}" />
+                </h:column>
+
+                <!-- Columna: Fecha -->
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Fecha" />
+                    </f:facet>
+                    <h:outputText value="#{t.evento.fechaEvento}">
+                        <f:convertDateTime pattern="dd/MM/yyyy HH:mm" />
+                    </h:outputText>
+                </h:column>
+
+                <!-- Columna: Precio -->
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Precio" />
+                    </f:facet>
+                    <h:outputText value="#{t.precio}">
+                        <f:convertNumber type="currency" currencySymbol="$" locale="es_MX" />
+                    </h:outputText>
+                </h:column>
+
+                <!-- Columna: Estado -->
+                <h:column>
+                    <f:facet name="header">
+                        <h:outputText value="Estado" />
+                    </f:facet>
+                    <h:outputText value="#{t.estado}" />
+                </h:column>
+
+            </h:dataTable>
+        </h:panelGroup>
+    </h:form>
+</h:body>
+</html>
