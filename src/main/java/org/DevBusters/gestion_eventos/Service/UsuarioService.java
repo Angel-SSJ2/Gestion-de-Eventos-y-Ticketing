@@ -1,11 +1,13 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 import org.DevBusters.gestion_eventos.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
+
 @Service
 public class UsuarioService implements IUsuarioService {
 
@@ -13,44 +15,42 @@ public class UsuarioService implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public Usuarios autenticar(String nombreUsuario, String contrasena) {
-        Optional<Usuarios> usuario = usuarioRepository.findByUsernameAndContraseña(nombreUsuario, contrasena);
-        return usuario.orElse(null);
+    public UsuarioEntity autenticar(String nombreUsuario, String contrasena) {
+        return usuarioRepository.findBynombreUsuarioAndContrasena(nombreUsuario, contrasena);
     }
 
     @Override
-    public Usuario buscarPorUsername(String username) {
-        Optional<Usuario> usuario = usuarioRepository.findByUsername(username);
-        return usuario.orElse(null);
+    public Optional<UsuarioEntity> buscarPornombreUsuario(String username) {
+        return usuarioRepository.findBynombreUsuario(username);
     }
 
     @Override
-    public Usuarios crearUsuario(Usuarios usuario) {
-        return null;
+    public Optional<UsuarioEntity> buscarUsuarioPorId(Integer idCliente) {
+        return usuarioRepository.findById(idCliente);
     }
 
     @Override
-    public Usuario crearUsuario(Usuario usuario) {
-        // Validar que no exista el username
-        if (usuarioRepository.existsByUsername(usuario.getnombreUsuario())) {
-            throw new RuntimeException("El username ya existe");
-        }
-
-        // Validar que no exista el email
-        if (usuarioRepository.existsByEmail(usuario.getcorreo())) {
-            throw new RuntimeException("El email ya está registrado");
-        }
-
+    public UsuarioEntity crearUsuario(UsuarioEntity usuario) {
         return usuarioRepository.save(usuario);
     }
 
     @Override
-    public boolean existeUsername(String nombreUsuario) {
-        return usuarioRepository.existsByUsername(nombreUsuario);
+    public boolean existenombreUsuario(String nombreUsuario) {
+        return usuarioRepository.existsBynombreUsuario(nombreUsuario);
     }
 
     @Override
-    public boolean existeEmail(String correo) {
-        return usuarioRepository.existsByEmail(correo);
+    public boolean existeCorreo(String correo) {
+        return usuarioRepository.existsByCorreo(correo);
+    }
+
+    @Override
+    public List<UsuarioEntity> listarUsuarios() {
+        return usuarioRepository.findAll();
+    }
+
+    @Override
+    public void eliminarUsuario(Integer idCliente) {
+        usuarioRepository.deleteById(idCliente);
     }
 }
