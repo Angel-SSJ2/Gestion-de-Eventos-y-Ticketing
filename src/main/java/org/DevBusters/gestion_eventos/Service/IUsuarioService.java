@@ -12,4 +12,14 @@ public interface IUsuarioService {
     boolean existeUsername(String nombreUsuario);
 
     boolean existeEmail(String correo);
+
+    List<Usuarios> listarUsuario();
+
+    public void guardarUsuario(Usuario cliente);
+
+    Usuarios login(String email, String contrasena);
+
+    public Usuarios buscarUsuarioPorId(Integer idCliente);
+
+    public void eliminarUsuario(Usuarios cliente);
 }

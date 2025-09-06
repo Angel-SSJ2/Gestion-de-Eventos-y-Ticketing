@@ -25,6 +25,11 @@ public class UsuarioService implements IUsuarioService {
     }
 
     @Override
+    public Usuarios crearUsuario(Usuarios usuario) {
+        return null;
+    }
+
+    @Override
     public Usuario crearUsuario(Usuario usuario) {
         // Validar que no exista el username
         if (usuarioRepository.existsByUsername(usuario.getnombreUsuario())) {
