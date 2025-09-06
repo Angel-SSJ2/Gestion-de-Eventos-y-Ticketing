@@ -1,7 +1,7 @@
-package org.DevBusters.gestion_eventos.service;
+package org.DevBusters.gestion_eventos.Service;
 
 import org.DevBusters.gestion_eventos.entity.Usuarios;
-import org.DevBusters.gestion_eventos.repository.UsuariosRepository;
+import org.DevBusters.gestion_eventos.Repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

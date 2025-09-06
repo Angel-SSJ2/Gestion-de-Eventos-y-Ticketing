@@ -1,17 +1,17 @@
 package org.DevBusters.gestion_eventos.Repository;
 
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.entity.Usuarios;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
 public interface UsuarioRepository extends JpaRepository<Usuarios, Integer> {
 
-    Optional<Usuarios> findByUsername(String nombreUsuario);
+    Optional<Usuarios> findByNombreUsuario(String nombreUsuario);
 
-    Optional<Usuarios> findByUsernameAndContraseña(String nombreUsuario, String contrasena);
+    Optional<Usuarios> findByNombreUsuarioAndContrasena(String nombreUsuario, String contrasena);
 
-    boolean existsByUsername(String nombreUsuario);
+    boolean existsByNombreUsuario(String nombreUsuario);
 
-    boolean existsByEmail(String correo);
+    boolean existsByCorreo(String correo);
 }

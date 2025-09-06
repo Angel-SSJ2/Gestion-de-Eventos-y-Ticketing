@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import lombok.Data;
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.entity.Usuarios;
 import org.DevBusters.gestion_eventos.GestorInicioSesion;
 import org.DevBusters.gestion_eventos.Service.UsuarioService;
 import org.slf4j.Logger;
@@ -35,7 +35,7 @@ public class loginController implements Serializable {
     @PostConstruct
     public void init() {
         // Usa la instancia inyectada
-        if (gestorInicioSesion.estaAutenticado()) {
+        if (GestorInicioSesion.estaAutenticado()) {
             try {
                 FacesContext.getCurrentInstance()
                         .getExternalContext()
