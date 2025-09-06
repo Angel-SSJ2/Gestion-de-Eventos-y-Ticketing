@@ -32,10 +32,10 @@ public class GestorInicioSesion implements Serializable {
     }
 
     public String getNombreUsuario() {
-        return usuarioLogueado != null ? usuarioLogueado.getnombreUsuario() : "";
+        return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
     }
 
     public static String getUsername() {
-        return usuarioLogueado != null ? usuarioLogueado.getnombreUsuario() : "";
+        return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
     }
 }
