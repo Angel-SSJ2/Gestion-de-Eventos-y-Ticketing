@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface ITicketRepository extends JpaRepository<TicketEntity, Integer> {
+public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
 
     // Método para encontrar un ticket por el ID del evento
     Optional<TicketEntity> findByIdEvento(Integer idEvento);

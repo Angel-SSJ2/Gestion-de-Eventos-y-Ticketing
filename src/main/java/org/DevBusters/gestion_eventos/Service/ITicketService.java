@@ -1,6 +1,6 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.entidad.TicketEntity;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 
 import java.util.List;
 
