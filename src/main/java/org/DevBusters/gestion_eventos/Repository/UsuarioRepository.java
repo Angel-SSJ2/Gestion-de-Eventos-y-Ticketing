@@ -5,13 +5,18 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
 
-public interface UsuarioRepository extends JpaRepository<Usuarios, Integer> {
+@Repository
+public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-    Optional<Usuarios> findByUsername(String nombreUsuario);
+    // Método para autenticar por nombre de usuario y contraseña
+    Optional<Usuario> findByNombreUsuarioAndContrasena(String nombreUsuario, String contrasena);
 
-    Optional<Usuarios> findByUsernameAndContraseña(String nombreUsuario, String contrasena);
+    // Método para buscar por nombre de usuario
+    Optional<Usuario> findByNombreUsuario(String nombreUsuario);
 
-    boolean existsByUsername(String nombreUsuario);
+    // Método para verificar si un nombre de usuario existe
+    boolean existsByNombreUsuario(String nombreUsuario);
 
-    boolean existsByEmail(String correo);
+    // Método para verificar si un correo existe
+    boolean existsByCorreo(String correo);
 }
