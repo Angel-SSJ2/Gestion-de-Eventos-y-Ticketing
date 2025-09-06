@@ -11,12 +11,9 @@ import java.util.Optional;
 public interface ITicketService {
 
     public List<TicketEntity> listarTicket();
-
     Map<String, Object> validarTicketPorQr(String codigoQr);
-
     Optional<TicketEntity> getTicketById(Integer id);
-
     TicketEntity guardarTicket(TicketEntity ticket);
-
     TicketEntity guardarTicketVendido(Integer idEvento, Integer idUsuario, Double precio);
+
 }

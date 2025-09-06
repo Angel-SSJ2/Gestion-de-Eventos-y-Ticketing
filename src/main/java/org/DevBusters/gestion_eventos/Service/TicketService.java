@@ -36,13 +36,12 @@ public class TicketService implements ITicketService {
     }
 
     @Override
-    public Optional<TicketEntity> getTicketById(Integer id) {
-        return Optional.empty();
-    }
-
-    @Override
     public TicketEntity guardarTicket(TicketEntity ticket) {
-        return null;
+        return ticketrepository.save(ticket);
+    }
+    @Override
+    public Optional<TicketEntity> getTicketById(Integer id) {
+        return ticketrepository.findById(id);
     }
 
     public TicketEntity guardarTicketVendido(Integer idEvento, Integer idUsuario, Double precio) {
@@ -58,37 +57,11 @@ public class TicketService implements ITicketService {
         nuevoTicket.setUsuario(usuarioOpt.get());
         nuevoTicket.setPrecio(precio);
 
-        nuevoTicket.setCodigoQr(UUID.randomUUID().toString());
-
         nuevoTicket.setEstado(Enum.VENDIDO);
 
         return ticketrepository.save(nuevoTicket);
     }
 
-    public Map<String, Object> ValidarTicketPorQR(String codigoQR){
-        Map<String, Object> resultado = new HashMap<>();
-        Optional<TicketEntity> ticketOpt = ticketrepository.findByCodigoQr(codigoQR);
-        if (!ticketOpt.isPresent()){
-            resultado.put("estado", "Error");
-            resultado.put("mensaje", "El oodigo QR no existe");
-            return resultado;
-        }
 
-        TicketEntity ticket = ticketOpt.get();
-
-        if (ticket.getEstado() == Enum.USADO) {
-            resultado.put("estado", "ERROR");
-            resultado.put("mensaje", "Este ticket ya ha sido usado.");
-            return resultado;
-        }
-
-        ticket.setEstado(Enum.VENDIDO);
-        ticketrepository.save(ticket);
-
-        resultado.put("estado", "OK");
-        resultado.put("mensaje", "Validación exitosa.");
-        resultado.put("ticket", ticket);
-        return resultado;
-    }
 }
 

@@ -1,6 +1,7 @@
 
 package org.DevBusters.gestion_eventos.Controller;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
@@ -23,6 +24,33 @@ public class TicketController implements Serializable {
 
     private String ticketId;
     private String resultadoValidacion;
+    private TicketEntity nuevoTicket;
+    private TicketEntity ticketSeleccionado;
+
+    @PostConstruct
+    public void init() {
+        this.nuevoTicket = new TicketEntity();
+    }
+
+    public String comprarTicket() {
+        try {
+            nuevoTicket.setEstado(Enum.DISPONIBLE);
+
+            ticketService.guardarTicket(nuevoTicket);
+
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Éxito", "¡Ticket comprado con éxito!"));
+
+            this.nuevoTicket = new TicketEntity();
+
+            return "ComprarTicket.xhtml?faces-redirect=true";
+        } catch (Exception e) {
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo comprar el ticket."));
+            e.printStackTrace();
+            return null;
+        }
+        }
 
     public void validarTicket() {
         Optional<TicketEntity> ticketOpt = ticketService.getTicketById(Integer.parseInt(this.ticketId));
@@ -48,5 +76,9 @@ public class TicketController implements Serializable {
         }
 
         this.ticketId = null;
+    }
+
+    public void buscarTicketParaMostrar(Integer id) {
+        this.ticketSeleccionado = ticketService.getTicketById(id).orElse(null);
     }
 }

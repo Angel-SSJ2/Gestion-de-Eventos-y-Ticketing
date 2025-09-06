@@ -13,6 +13,7 @@ public class TicketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "idTicket")
     private Integer idTickets;
 
     @ManyToOne
@@ -22,8 +23,6 @@ public class TicketEntity {
     @ManyToOne
     @JoinColumn(name = "idUsuario", nullable = false)
     private UsuarioEntity usuario;
-
-    private String codigoQr;
 
     private Double precio;
 
@@ -54,13 +53,6 @@ public class TicketEntity {
         this.precio = precio;
     }
 
-    public String getCodigoQr() {
-        return codigoQr;
-    }
-
-    public void setCodigoQr(String codigoQr) {
-        this.codigoQr = codigoQr;
-    }
 
     public UsuarioEntity getUsuario() {
         return usuario;

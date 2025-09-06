@@ -14,7 +14,5 @@ public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
     List<TicketEntity> findByUsuario_IdUsuario(Integer idUsuario);
     Long countByEvento_IdEventoAndEstado(Integer idEvento, Enum estado);
 
-    Optional<TicketEntity> findByCodigoQr(String codigoQr);
-    Optional<TicketEntity> findByidTickets(Integer codigoQr);
 
 }

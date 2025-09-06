@@ -14,8 +14,14 @@
                 <p:inputText id="ticketId" value="#{ticketController.ticketId}" required="true"
                              placeholder="Ingrese el ID del ticket"/>
 
-                <p:commandButton value="Validar" action="#{ticketController.validarTicket()}" update="@form"
-                                 icon="pi pi-check"/>
+                <p:commandButton value="Validar Ticket"
+                                 action="#{ticketController.validarTicket}"
+                                 update="@form" />
+                <h:panelGroup id="resultadoPanel">
+                    <p:outputLabel value="#{ticketController.resultadoValidacion}"
+                                   styleClass="font-weight-bold"
+                                   rendered="#{not empty ticketController.resultadoValidacion}" />
+                </h:panelGroup>
             </p:panelGrid>
 
             <p:messages showDetail="true" autoUpdate="true" closable="true"/>
