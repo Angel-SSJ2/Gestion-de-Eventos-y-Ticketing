@@ -1,6 +1,6 @@
 package org.DevBusters.gestion_eventos;
 
-import org.DevBusters.gestion_eventos.entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.Usuarios;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 

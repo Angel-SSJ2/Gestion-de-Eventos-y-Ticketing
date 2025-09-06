@@ -6,7 +6,7 @@ import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import lombok.Data;
 import org.DevBusters.gestion_eventos.Service.UsuariosService;
-import org.DevBusters.gestion_eventos.entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.Usuarios;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
