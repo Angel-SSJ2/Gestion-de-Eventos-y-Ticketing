@@ -1,6 +1,6 @@
 package org.DevBusters.gestion_eventos.Repository;
 
-import org.DevBusters.gestion_eventos.entidad.TicketEntity;
+import org.DevBusters.gestion_eventos.Entity.TicketEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
