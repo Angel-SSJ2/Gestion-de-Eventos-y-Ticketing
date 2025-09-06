@@ -1,6 +1,6 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.Usuarios;
 
 import java.util.List;
 

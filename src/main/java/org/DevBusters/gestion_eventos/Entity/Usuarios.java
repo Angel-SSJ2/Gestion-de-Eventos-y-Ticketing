@@ -1,4 +1,4 @@
-package org.DevBusters.gestion_eventos.entity;
+package org.DevBusters.gestion_eventos.Entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
