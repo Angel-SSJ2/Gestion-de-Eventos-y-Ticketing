@@ -1,5 +1,9 @@
 package org.DevBusters.gestion_eventos.Service;
 
+import org.DevBusters.gestion_eventos.Entity.EventoEntity;
+
+import java.util.List;
+
 public class EventoService implements IEventoService{
     @Override
     public List<EventoEntity> listaEventos() {
