@@ -35,7 +35,7 @@ public class loginController implements Serializable {
     @PostConstruct
     public void init() {
         // Usa la instancia inyectada
-        if (GestorInicioSesion.estaAutenticado()) {
+        if (gestorInicioSesion.estaAutenticado()) {
             try {
                 FacesContext.getCurrentInstance()
                         .getExternalContext()
