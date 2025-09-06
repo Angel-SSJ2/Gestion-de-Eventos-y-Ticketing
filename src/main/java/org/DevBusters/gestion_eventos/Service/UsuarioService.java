@@ -1,7 +1,7 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.entidad.Usuario;
-import org.DevBusters.gestion_eventos.Repository.IUsuarioRepository;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
+import org.DevBusters.gestion_eventos.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,24 +11,24 @@ import java.util.Optional;
 public class UsuarioService implements IUsuarioService {
 
     @Autowired
-    private IUsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
 
     @Override
-    public Usuario autenticar(String nombreUsuario, String contrasena) {
+    public UsuarioEntity autenticar(String nombreUsuario, String contrasena) {
         // Corrección: El método debe buscar por nombreUsuario y contrasena
-        Optional<Usuario> usuario = usuarioRepository.findByNombreUsuarioAndContrasena(nombreUsuario, contrasena);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNombreUsuarioAndContrasena(nombreUsuario, contrasena);
         return usuario.orElse(null);
     }
 
     @Override
-    public Usuario buscarPorUsername(String nombreUsuario) {
+    public UsuarioEntity buscarPorUsername(String nombreUsuario) {
         // Corrección: El método debe buscar por nombreUsuario
-        Optional<Usuario> usuario = usuarioRepository.findByNombreUsuario(nombreUsuario);
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNombreUsuario(nombreUsuario);
         return usuario.orElse(null);
     }
 
     @Override
-    public Usuario crearUsuario(Usuario usuario) {
+    public UsuarioEntity crearUsuario(UsuarioEntity usuario) {
         // Validar que no exista el nombre de usuario
         if (usuarioRepository.existsByNombreUsuario(usuario.getNombreUsuario())) {
             throw new RuntimeException("El nombre de usuario ya existe");

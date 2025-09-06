@@ -4,13 +4,11 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import lombok.Data;
-import org.DevBusters.gestion_eventos.entidad.TicketEntity;
-import org.DevBusters.gestion_eventos.entidad.EventoEntity;
-import org.DevBusters.gestion_eventos.entidad.UsuarioEntity;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 import org.DevBusters.gestion_eventos.Enum;
 import org.DevBusters.gestion_eventos.GestorInicioSesion;
-import org.DevBusters.gestion_eventos.Repository.IEventoRepository;
-import org.DevBusters.gestion_eventos.Repository.IUsuarioRepository;
+import org.DevBusters.gestion_eventos.Repository.EventoRepository;
+import org.DevBusters.gestion_eventos.Repository.UsuarioRepository;
 import org.DevBusters.gestion_eventos.Repository.ITicketRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,9 +30,9 @@ public class TicketController implements Serializable {
 
     // Repositorios para buscar las entidades relacionadas y guardar el ticket
     @Autowired
-    private IEventoRepository eventoRepository;
+    private EventoRepository eventoRepository;
     @Autowired
-    private IUsuarioRepository usuarioRepository;
+    private UsuarioRepository usuarioRepository;
     @Autowired
     private ITicketRepository ticketRepository;
 
@@ -61,7 +59,7 @@ public class TicketController implements Serializable {
     public void comprarTicket() {
         logger.info("Intento de compra de ticket para el evento: " + idEvento);
 
-        if (gestorInicioSesion.getUsuarioAutenticado() == null) {
+        if (gestorInicioSesion.getUsuarioLogueado() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe iniciar sesión para comprar un ticket."));
             return;
@@ -69,7 +67,7 @@ public class TicketController implements Serializable {
 
         try {
             // Obtener el usuario autenticado
-            UsuarioEntity usuario = gestorInicioSesion.getUsuarioAutenticado();
+            UsuarioEntity usuario = gestorInicioSesion.getUsuarioLogueado();
 
             // Buscar la entidad del evento en el repositorio
             Optional<EventoEntity> eventoOptional = eventoRepository.findById(idEvento);
@@ -82,7 +80,6 @@ public class TicketController implements Serializable {
 
             EventoEntity evento = eventoOptional.get();
 
-            // Lógica para la compra del ticket
             nuevoTicket = new TicketEntity();
             nuevoTicket.setEvento(evento);
             nuevoTicket.setUsuario(usuario);

@@ -1,6 +1,6 @@
 package org.DevBusters.gestion_eventos;
 
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -10,10 +10,10 @@ import java.io.Serializable;
 @SessionScope
 public class GestorInicioSesion implements Serializable {
 
-    private static Usuarios usuarioLogueado;
+    private static UsuarioEntity usuarioLogueado;
     private static boolean autenticado = false;
 
-    public void iniciarSesion(Usuarios usuario) {
+    public void iniciarSesion(UsuarioEntity usuario) {
         this.usuarioLogueado = usuario;
         this.autenticado = true;
     }
@@ -27,15 +27,15 @@ public class GestorInicioSesion implements Serializable {
         return autenticado && usuarioLogueado != null;
     }
 
-    public Usuarios getUsuarioLogueado() {
+    public UsuarioEntity getUsuarioLogueado() {
         return usuarioLogueado;
     }
 
     public String getNombreUsuario() {
-        return usuarioLogueado != null ? usuarioLogueado.getnombreUsuario() : "";
+        return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
     }
 
     public static String getUsername() {
-        return usuarioLogueado != null ? usuarioLogueado.getnombreUsuario() : "";
+        return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
     }
 }
