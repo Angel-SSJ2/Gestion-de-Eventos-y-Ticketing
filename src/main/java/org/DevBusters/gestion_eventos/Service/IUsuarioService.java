@@ -1,6 +1,8 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.entity.Usuarios;
+
+import java.util.List;
 
 public interface IUsuarioService {
     Usuarios autenticar(String nombreUsuario, String contrasena);

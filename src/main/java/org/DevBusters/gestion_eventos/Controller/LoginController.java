@@ -4,7 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import lombok.Data;
-import org.DevBusters.gestion_eventos.entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.Usuarios;
 import org.DevBusters.gestion_eventos.GestorInicioSesion;
 import org.DevBusters.gestion_eventos.Service.UsuarioService;
 import org.slf4j.Logger;
@@ -23,6 +23,9 @@ public class loginController implements Serializable {
 
     @Autowired
     private UsuarioService usuarioService;
+    private List<Usuario> usuarios;
+    private Usuario usuarioSeleccionado;
+    private Usuario usuarioLogin;
 
     // Aquí inyectamos la instancia de GestorInicioSesion
     @Autowired
@@ -52,7 +55,7 @@ public class loginController implements Serializable {
         try {
             Usuarios usuario = usuarioService.autenticar(nombreUsuario, contrasena);
 
-            if (usuario != null) {
+            if (usuario != null ) {
                 // Usa la instancia inyectada
                 gestorInicioSesion.iniciarSesion(usuario);
                 logger.info("Login exitoso para: " + nombreUsuario);
@@ -83,6 +86,26 @@ public class loginController implements Serializable {
         }
     }
 
+    public String registrarCliente() {
+        try {
+            this.usuarioService.guardarUsuario(this.usuarioSeleccionado);
+
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro exitoso", "¡Bienvenido " + this.usuarioSeleccionado.getNombre() + "!"));
+
+            logger.info("Cliente registrado: " + this.usuarioSeleccionado.getCorreo());
+
+            this.usuarioSeleccionado = new Usuario(); // Limpiar formulario
+
+            return "cliente?faces-redirect=true"; // Redirige a login.xhtml
+
+        } catch (Exception e) {
+            logger.warn("Error al registrar cliente: " + e.getMessage());
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se pudo registrar el cliente"));
+            return null;
+        }
+    }
 
     public void limpiarCampos() {
         this.nombreUsuario = "";
