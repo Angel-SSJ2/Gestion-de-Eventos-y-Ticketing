@@ -5,6 +5,7 @@ import org.DevBusters.gestion_eventos.Repository.OrganizadorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
+import java.util.Optional;
 
 public class OrganizadorService implements IOrganizadorService{
 
@@ -13,23 +14,55 @@ public class OrganizadorService implements IOrganizadorService{
 
     @Override
     public List<OrganizadorEntity> listaOrganizadores() {
-        List<OrganizadorEntity> listaOrganizadores = organizadorRepository.findAll();
-        return  listaOrganizadores;
-    }
-
-    @Override
-    public OrganizadorEntity buscarPorId(Integer id) {
-        OrganizadorEntity organizador = organizadorRepository.findById(id).orElse(null);
-        return organizador;
-    }
-
-    @Override
-    public void guardarUsuarios(OrganizadorEntity organizador) {
-        organizadorRepository.save(organizador);
+        return organizadorRepository.findAll();
     }
 
     @Override
     public void eliminarUsuarios(OrganizadorEntity organizador) {
         organizadorRepository.delete(organizador);
+    }
+
+    @Override
+    public OrganizadorEntity autenticarOrganizador(String nombreOrganizador, String contrasena) {
+        Optional<OrganizadorEntity> organizador = organizadorRepository.findByNombreOrganizadorAndContrasena(nombreOrganizador, contrasena);
+        return organizador.orElse(null);
+    }
+
+    @Override
+    public Optional<OrganizadorEntity> buscarPorNombreOrganizador(String nombreOrganizador) {
+        return Optional.empty();
+    }
+
+    @Override
+    public Optional<OrganizadorEntity> buscarOrganizadorPorId(Integer id) {
+        return organizadorRepository.findById(id);
+    }
+
+    @Override
+    public OrganizadorEntity crearOrganizador(OrganizadorEntity organizador) {
+        if (usuarioRepository.existsByNombreUsuario(organizador.getNombreOrganizador())) {
+            throw new RuntimeException("El nombre de usuario ya existe");
+        }
+
+        if (usuarioRepository.existsByCorreo(organizador.getCorreo())) {
+            throw new RuntimeException("El correo ya está registrado");
+        }
+
+        return organizadorRepository.save(organizador);
+    }
+
+    @Override
+    public boolean existenombreUsuario(String nombreUsuario) {
+        return usuarioRepository.existsByNombreUsuario(nombreUsuario);
+    }
+
+    @Override
+    public boolean existeCorreo(String correo) {
+        return false;
+    }
+
+    @Override
+    public boolean existeEmail(String correo) {
+        return usuarioRepository.existsByCorreo(correo);
     }
 }
