@@ -29,10 +29,9 @@ create table Usuarios(
 );
 
 create table Tickets(
-	idTicket integer auto_increment not null,
-    idEvento integer not null,
-    idUsuario integer not null,
-	codigoQr varchar(45) not null,
+	idTicket Integer auto_increment not null,
+    idEvento Integer not null,
+    idUsuario int not null,
     precio decimal(10, 2) not null,
     estado enum('Vendido','Usado', 'Disponible') default 'Disponible',
     constraint pk_Ticket primary key (idTicket)

@@ -1,15 +1,17 @@
 package org.DevBusters.gestion_eventos.Repository;
 
 import org.DevBusters.gestion_eventos.Entity.TicketEntity;
-import org.DevBusters.gestion_eventos.Enum;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import java.util.Optional;
 
+@Repository
 public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
 
-    List<TicketEntity> findByUsuario_IdUsuario(Integer idUsuario);
+    // Método para encontrar un ticket por el ID del evento
+    Optional<TicketEntity> findByIdEvento(Integer idEvento);
 
-    Long countByEvento_IdEventoAndEstado(Integer idEvento, Enum estado);
-
+    // Método para encontrar un ticket por el ID del usuario
+    Optional<TicketEntity> findByIdUsuario(Integer idUsuario);
 }

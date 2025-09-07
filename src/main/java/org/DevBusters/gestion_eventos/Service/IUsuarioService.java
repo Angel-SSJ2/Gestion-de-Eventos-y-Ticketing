@@ -1,15 +1,15 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 
 import java.util.List;
 
 public interface IUsuarioService {
-    Usuarios autenticar(String nombreUsuario, String contrasena);
+    UsuarioEntity autenticar(String nombreUsuario, String contrasena);
 
-    Usuarios buscarPorUsername(String nombreUsuario);
+    UsuarioEntity buscarPorUsername(String nombreUsuario);
 
-    Usuarios crearUsuario(Usuarios usuario);
+    UsuarioEntity crearUsuario(UsuarioEntity usuario);
 
     boolean existeUsername(String nombreUsuario);
 

@@ -1,11 +1,12 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 import org.DevBusters.gestion_eventos.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
 @Service
 public class UsuarioService implements IUsuarioService {
 
@@ -13,27 +14,29 @@ public class UsuarioService implements IUsuarioService {
     private UsuarioRepository usuarioRepository;
 
     @Override
-    public Usuarios autenticar(String nombreUsuario, String contrasena) {
-        Optional<Usuarios> usuario = usuarioRepository.findByNombreUsuarioAndContrasena(nombreUsuario, contrasena);
+    public UsuarioEntity autenticar(String nombreUsuario, String contrasena) {
+        // Corrección: El método debe buscar por nombreUsuario y contrasena
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNombreUsuarioAndContrasena(nombreUsuario, contrasena);
         return usuario.orElse(null);
     }
 
     @Override
-    public Usuarios buscarPorUsername(String username) {
-        Optional<Usuarios> usuario = usuarioRepository.findByNombreUsuario(username);
+    public UsuarioEntity buscarPorUsername(String nombreUsuario) {
+        // Corrección: El método debe buscar por nombreUsuario
+        Optional<UsuarioEntity> usuario = usuarioRepository.findByNombreUsuario(nombreUsuario);
         return usuario.orElse(null);
     }
 
     @Override
-    public Usuarios crearUsuario(Usuarios usuario) {
-        // Validar que no exista el username
+    public UsuarioEntity crearUsuario(UsuarioEntity usuario) {
+        // Validar que no exista el nombre de usuario
         if (usuarioRepository.existsByNombreUsuario(usuario.getNombreUsuario())) {
-            throw new RuntimeException("El username ya existe");
+            throw new RuntimeException("El nombre de usuario ya existe");
         }
 
-        // Validar que no exista el email
+        // Validar que no exista el correo
         if (usuarioRepository.existsByCorreo(usuario.getCorreo())) {
-            throw new RuntimeException("El email ya está registrado");
+            throw new RuntimeException("El correo ya está registrado");
         }
 
         return usuarioRepository.save(usuario);
