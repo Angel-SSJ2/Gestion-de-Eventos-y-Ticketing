@@ -13,7 +13,7 @@ public class TicketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idTickets;
+    private Integer idTicket;
 
     @ManyToOne
     @JoinColumn(name = "idEvento", nullable = false)
@@ -28,12 +28,12 @@ public class TicketEntity {
     @Enumerated(EnumType.STRING)
     private Enum estado;
 
-    public Integer getIdTickets() {
-        return idTickets;
+    public Integer getIdTicket() {
+        return idTicket;
     }
 
-    public void setIdTickets(Integer idTickets) {
-        this.idTickets = idTickets;
+    public void setIdTicket(Integer idTicket) {
+        this.idTicket = idTicket;
     }
 
     public Enum getEstado() {

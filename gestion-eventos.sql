@@ -37,3 +37,4 @@ create table Tickets(
 );
 
 select * from Usuarios;
+select * from Organizadores;

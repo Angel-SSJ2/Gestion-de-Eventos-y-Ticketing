@@ -2,15 +2,21 @@ package org.DevBusters.gestion_eventos.Service;
 
 import org.DevBusters.gestion_eventos.Entity.OrganizadorEntity;
 import org.DevBusters.gestion_eventos.Repository.OrganizadorRepository;
+import org.DevBusters.gestion_eventos.Repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class OrganizadorService implements IOrganizadorService{
 
     @Autowired
     private OrganizadorRepository organizadorRepository;
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
 
     @Override
     public List<OrganizadorEntity> listaOrganizadores() {

@@ -5,8 +5,10 @@ import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
 import lombok.Data;
+import org.DevBusters.gestion_eventos.Entity.OrganizadorEntity;
 import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 import org.DevBusters.gestion_eventos.GestorInicioSesion;
+import org.DevBusters.gestion_eventos.Service.IOrganizadorService;
 import org.DevBusters.gestion_eventos.Service.IUsuarioService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +17,6 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.Serializable;
-import javax.security.auth.login.LoginException;
 
 @Component("loginController")
 @ViewScoped
@@ -26,24 +27,27 @@ public class LoginController implements Serializable {
     private IUsuarioService usuarioService;
 
     @Autowired
+    private IOrganizadorService organizadorService;
+
+    @Autowired
     private GestorInicioSesion gestorInicioSesion;
 
     private String nombreUsuario;
     private String contrasena;
     private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-    @PostConstruct
-    public void init() {
-        if (gestorInicioSesion.estaAutenticado()) {
-            try {
-                FacesContext.getCurrentInstance()
-                        .getExternalContext()
-                        .redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");
-            } catch (IOException e) {
-                logger.error("Error al redirigir al usuario autenticado", e);
-            }
-        }
-    }
+//    @PostConstruct
+//    public void init() {
+//        if (gestorInicioSesion.estaAutenticado()) {
+//            try {
+//                FacesContext.getCurrentInstance()
+//                        .getExternalContext()
+//                        .redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
+//            } catch (IOException e) {
+//                logger.error("Error al redirigir al usuario autenticado", e);
+//            }
+//        }
+//    }
 
     public String iniciarSesion() {
         logger.info("Intento de login para usuario: {}", nombreUsuario);
@@ -55,6 +59,20 @@ public class LoginController implements Serializable {
         }
 
         try {
+            OrganizadorEntity organizador = organizadorService.autenticarOrganizador(nombreUsuario, contrasena);
+
+            if (organizador != null) {
+                // Usa la instancia inyectada
+                gestorInicioSesion.iniciarSesion(organizador);
+                logger.info("Login exitoso para: {}", nombreUsuario);
+
+                FacesContext.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Bienvenido!", "Has iniciado sesión correctamente."));
+
+                return "Eventos.xhtml?faces-redirect=true";
+
+            }
+
             UsuarioEntity usuario = usuarioService.autenticar(nombreUsuario, contrasena);
 
             if (usuario != null) {
@@ -65,7 +83,7 @@ public class LoginController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Bienvenido!", "Has iniciado sesión correctamente."));
 
-                return "Eventos.xhtml?faces-redirect=true";
+                return "ComprarTicket.xhtml?faces-redirect=true";
 
             } else {
                 logger.warn("Login fallido para: {}", nombreUsuario);

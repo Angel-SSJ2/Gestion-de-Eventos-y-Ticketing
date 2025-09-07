@@ -69,37 +69,28 @@ public class TicketController implements Serializable {
      * Comprar ticket
      */
     public void comprarTicket() {
-        logger.info("Intento de compra de ticket para el evento: " + idEvento);
-
         if (gestorInicioSesion.getUsuarioLogueado() == null) {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe iniciar sesión para comprar un ticket."));
             return;
         }
 
-        try {
-            UsuarioEntity usuario = gestorInicioSesion.getUsuarioLogueado();
+        UsuarioEntity usuario = gestorInicioSesion.getUsuario();
+        nuevoTicket.setUsuario(usuario);
+        logger.info("Intento de compra de ticket para el evento: " + (nuevoTicket.getEvento() != null ? nuevoTicket.getEvento().getIdEvento() : "null"));
 
-            Optional<EventoEntity> eventoOptional = eventoRepository.findById(idEvento);
-            if (eventoOptional.isEmpty()) {
+        try {
+            if (nuevoTicket.getEvento() == null){
                 FacesContext.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Evento no encontrado."));
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe seleccionar un evento."));
                 return;
             }
-
-            EventoEntity evento = eventoOptional.get();
-
-            nuevoTicket = new TicketEntity();
-            nuevoTicket.setEvento(evento);
-            nuevoTicket.setUsuario(usuario);
-            nuevoTicket.setPrecio(precio);
             nuevoTicket.setEstado(Enum.VENDIDO);
 
             ticketRepository.save(nuevoTicket);
 
-            mensaje = "¡Compra exitosa! Su ticket ha sido generado correctamente.";
             FacesContext.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Compra Exitosa!", mensaje));
+                    new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Compra Exitosa!", "Su ticket ha sido generado correctamente."));
 
             logger.info("Ticket comprado para el usuario: " + usuario.getNombreUsuario());
 

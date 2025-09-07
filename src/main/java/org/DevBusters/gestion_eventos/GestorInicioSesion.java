@@ -1,6 +1,8 @@
 package org.DevBusters.gestion_eventos;
 
+import org.DevBusters.gestion_eventos.Entity.OrganizadorEntity;
 import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -10,10 +12,11 @@ import java.io.Serializable;
 @SessionScope
 public class GestorInicioSesion implements Serializable {
 
-    private static UsuarioEntity usuarioLogueado;
+    private Object usuarioLogueado;
     private static boolean autenticado = false;
+    private UsuarioEntity usuario;
 
-    public void iniciarSesion(UsuarioEntity usuario) {
+    public void iniciarSesion(Object usuario) {
         this.usuarioLogueado = usuario;
         this.autenticado = true;
     }
@@ -24,18 +27,36 @@ public class GestorInicioSesion implements Serializable {
     }
 
     public boolean estaAutenticado() {
+
         return autenticado && usuarioLogueado != null;
     }
 
-    public UsuarioEntity getUsuarioLogueado() {
+    public Object getUsuarioLogueado() {
         return usuarioLogueado;
     }
 
-    public String getNombreUsuario() {
-        return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
+    public UsuarioEntity getUsuario(){
+        if (usuarioLogueado instanceof UsuarioEntity){
+            return (UsuarioEntity) usuarioLogueado;
+        }
+        return null;
     }
 
-    public static String getUsername() {
-        return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
+    public String getNombreUsuario() {
+        if (usuarioLogueado instanceof UsuarioEntity){
+            return ((UsuarioEntity) usuarioLogueado).getNombreUsuario();
+        } else if (usuarioLogueado instanceof OrganizadorEntity){
+            return ((OrganizadorEntity) usuarioLogueado).getNombreOrganizador();
+        } else {
+            return "";
+        }
+    }
+
+    public boolean esUsuario(){
+        return usuarioLogueado instanceof UsuarioEntity;
+    }
+
+    public boolean esOrganizador(){
+        return usuarioLogueado instanceof OrganizadorEntity;
     }
 }

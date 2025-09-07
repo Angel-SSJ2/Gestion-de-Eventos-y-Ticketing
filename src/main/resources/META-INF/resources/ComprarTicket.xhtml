@@ -1,39 +1,40 @@
 <!DOCTYPE html>
 <h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
         xmlns:f="http://xmlns.jcp.org/jsf/core"
-        xmlns:p="http://primefaces.org/ui">
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:o="http://omnifaces.org/ui">
     <h:head>
         <title>Comprar Ticket</title>
     </h:head>
     <h:body>
         <h:form>
             <p:panel header="Comprar Ticket">
-                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
 
                 <h:panelGrid columns="2" cellpadding="5">
 
-                    <p:outputLabel for="precio" value="Precio del Ticket:" />
-                    <p:inputText id="precio" value="#{ticketController.nuevoTicket.precio}" required="true" />
+                    <p:outputLabel for="precio" value="Precio del Ticket:"/>
+                    <p:inputText id="precio" value="#{ticketController.nuevoTicket.precio}" required="true"/>
 
-                    <p:outputLabel for="evento" value="Evento:" />
+                    <p:outputLabel for="evento" value="Evento:"/>
                     <p:selectOneMenu id="evento" value="#{ticketController.nuevoTicket.evento}"
-                                     converter="#{eventoConverter}" required="true">
-                        <f:selectItems value="#{eventoController.eventos}" var="evento"
-                                       itemLabel="#{evento.nombreEvento}" itemValue="#{evento}" />
+                                     converter="omnifaces.SelectItemsConverter">
+                        <f:selectItems value="#{eventoController.listaEventos}" var="evento"
+                                       itemLabel="#{evento.nombreEvento}" itemValue="#{evento}"/>
                     </p:selectOneMenu>
 
-                    <p:outputLabel for="usuario" value="Comprador:" />
+                    <p:outputLabel for="usuario" value="Comprador:"/>
                     <p:selectOneMenu id="usuario" value="#{ticketController.nuevoTicket.usuario}"
-                                     converter="#{usuarioConverter}" required="true">
+                                     converter="omnifaces.SelectItemsConverter">
                         <f:selectItems value="#{usuarioController.usuarios}" var="usuario"
-                                       itemLabel="#{usuario.nombreUsuario}" itemValue="#{usuario}" />
+                                       itemLabel="#{usuario.nombreUsuario}" itemValue="#{usuario}"/>
                     </p:selectOneMenu>
 
                 </h:panelGrid>
 
                 <p:commandButton value="Comprar Ticket"
                                  action="#{ticketController.comprarTicket}"
-                                 update="@form" />
+                                 update="@form"/>
             </p:panel>
         </h:form>
     </h:body>
