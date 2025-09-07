@@ -22,6 +22,4 @@ public class OrganizadorEntity {
 
     private String contrasena;
 
-    @OneToMany(mappedBy = "organizador")
-    private List<EventoEntity> eventos;
 }

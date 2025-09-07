@@ -12,7 +12,6 @@ create table Organizadores(
 
 create table Eventos (
 	idEvento integer auto_increment not null,
-    idOrganizador integer not null,
     nombreEvento varchar(45) not null,
     descripcion varchar(88) not null,
     fechaEvento Date not null,

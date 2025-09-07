@@ -58,6 +58,7 @@ public class LoginController implements Serializable {
             UsuarioEntity usuario = usuarioService.autenticar(nombreUsuario, contrasena);
 
             if (usuario != null) {
+                // Usa la instancia inyectada
                 gestorInicioSesion.iniciarSesion(usuario);
                 logger.info("Login exitoso para: {}", nombreUsuario);
 
