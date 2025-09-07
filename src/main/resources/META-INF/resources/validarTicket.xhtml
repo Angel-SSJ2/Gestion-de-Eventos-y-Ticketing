@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+<h:head>
+    <title>Validar Ticket</title>
+</h:head>
+<h:body>
+    <p:card>
+        <h2>Validar Ticket de Evento</h2>
+        <h:form>
+            <p:panelGrid columns="2">
+                <p:outputLabel for="ticketId" value="ID del Ticket:"/>
+                <p:inputText id="ticketId" value="#{ticketController.ticketId}" required="true"
+                             placeholder="Ingrese el ID del ticket"/>
+
+                <p:commandButton value="Validar Ticket"
+                                 action="#{ticketController.validarTicket}"
+                                 update="@form" />
+                <h:panelGroup id="resultadoPanel">
+                    <p:outputLabel value="#{ticketController.resultadoValidacion}"
+                                   styleClass="font-weight-bold"
+                                   rendered="#{not empty ticketController.resultadoValidacion}" />
+                </h:panelGroup>
+            </p:panelGrid>
+
+            <p:messages showDetail="true" autoUpdate="true" closable="true"/>
+
+            <h:panelGrid styleClass="ui-fluid">
+                <p:outputLabel value="#{ticketController.resultadoValidacion}"
+                               style="font-size: 1.5em; font-weight: bold; margin-top: 10px;"/>
+            </h:panelGrid>
+        </h:form>
+    </p:card>
+</h:body>
+</html>

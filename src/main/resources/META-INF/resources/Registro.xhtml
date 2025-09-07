@@ -91,7 +91,7 @@
         <div class="login-container">
             <div class="login-header">
                 <h2>Crear Cuenta</h2>
-                <p>Registrate para poder aprovechar nuestros servicios</p>
+                <p>Regístrate para poder aprovechar nuestros servicios</p>
             </div>
 
             <h:form id="crear-cuenta-form" class="login-form">
@@ -100,19 +100,19 @@
                 <div class="field-container">
                     <p:outputLabel for="username" value="Nombre:" styleClass="font-weight-bold"/>
                     <p:inputText id="username"
-                                 value="#{crearCuentaController.usuario.nombreUsuario}"
+                                 value="#{registroController.usuarioSeleccionado.nombreUsuario}"
                                  required="true"
-                                 requiredMessage="El usuario es obligatorio."
+                                 requiredMessage="El nombre de usuario es obligatorio."
                                  styleClass="input-field"
-                                 placeholder="Ingresa tu nombre usuario"/>
+                                 placeholder="Ingresa tu nombre de usuario"/>
                 </div>
 
                 <div class="field-container">
                     <p:outputLabel for="correo" value="Correo:" styleClass="font-weight-bold"/>
                     <p:inputText id="correo"
-                                 value="#{crearCuentaController.usuario.correo}"
+                                 value="#{registroController.usuarioSeleccionado.correo}"
                                  required="true"
-                                 requiredMessage="El usuario es obligatorio."
+                                 requiredMessage="El correo es obligatorio."
                                  styleClass="input-field"
                                  placeholder="Ingresa tu correo"/>
                 </div>
@@ -120,15 +120,29 @@
                 <div class="field-container">
                     <p:outputLabel for="contraseña" value="Contraseña:" styleClass="font-weight-bold"/>
                     <p:password id="contraseña"
-                                value="#{crearCuentaController.usuario.contrasena}"
+                                value="#{registroController.usuarioSeleccionado.contrasena}"
                                 required="true"
                                 requiredMessage="La contraseña es obligatoria."
                                 styleClass="input-field"
-                                placeholder="Ingresa tu contraseña"/>
+                                placeholder="Ingresa tu contraseña"
+                                feedback="true"
+                                match="confirmarContraseña"
+                                validatorMessage="Las contraseñas no coinciden."/>
+                </div>
+
+                <div class="field-container">
+                    <p:outputLabel for="confirmarContraseña" value="Confirmar Contraseña:" styleClass="font-weight-bold"/>
+                    <p:password id="confirmarContraseña"
+                                value="#{registroController.usuarioSeleccionado.contrasena}"
+                                required="true"
+                                requiredMessage="Por favor, confirma tu contraseña."
+                                styleClass="input-field"
+                                placeholder="Confirma tu contraseña"
+                                feedback="false"/>
                 </div>
 
                 <p:commandButton value="Crear Cuenta"
-                                 action="#{crearCuentaController.crearCuentaUsuario}"
+                                 action="#{registroController.registrarCliente}"
                                  styleClass="login-button"
                                  update="messages"
                                  process="@form"/>
