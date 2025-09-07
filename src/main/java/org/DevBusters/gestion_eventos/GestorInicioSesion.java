@@ -23,7 +23,7 @@ public class GestorInicioSesion implements Serializable {
         this.autenticado = false;
     }
 
-    public static boolean estaAutenticado() {
+    public boolean estaAutenticado() {
         return autenticado && usuarioLogueado != null;
     }
 

@@ -22,7 +22,7 @@ public class UsuariosService implements IUsuariosService{
     @Override
     public Usuarios buscarPorId(Integer id) {
         Usuarios usuarios = usuariosRepository.findById(id).orElse(null);
-        return null;
+        return usuarios;
     }
 
     @Override
