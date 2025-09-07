@@ -13,7 +13,6 @@ public class TicketEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idTicket")
     private Integer idTickets;
 
     @ManyToOne

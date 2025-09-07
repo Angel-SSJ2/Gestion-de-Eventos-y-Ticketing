@@ -1,4 +1,4 @@
-package org.DevBusters.gestion_eventos.service;
+package org.DevBusters.gestion_eventos.Service;
 
 import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 

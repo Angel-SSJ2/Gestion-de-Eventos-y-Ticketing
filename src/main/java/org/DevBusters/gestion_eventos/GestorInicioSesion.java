@@ -10,8 +10,8 @@ import java.io.Serializable;
 @SessionScope
 public class GestorInicioSesion implements Serializable {
 
-    private UsuarioEntity usuarioLogueado;
-    private boolean autenticado = false;
+    private static UsuarioEntity usuarioLogueado;
+    private static boolean autenticado = false;
 
     public void iniciarSesion(UsuarioEntity usuario) {
         this.usuarioLogueado = usuario;
@@ -31,7 +31,11 @@ public class GestorInicioSesion implements Serializable {
         return usuarioLogueado;
     }
 
-    public String getUsername() {
+    public String getNombreUsuario() {
+        return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
+    }
+
+    public static String getUsername() {
         return usuarioLogueado != null ? usuarioLogueado.getNombreUsuario() : "";
     }
 }

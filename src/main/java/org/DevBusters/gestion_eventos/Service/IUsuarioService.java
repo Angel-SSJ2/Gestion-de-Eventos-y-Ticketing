@@ -17,4 +17,5 @@ public interface IUsuarioService {
 
     List<UsuarioEntity> listarUsuarios();
     void eliminarUsuario(Integer idCliente);
+    boolean existeEmail(String correo);
 }
