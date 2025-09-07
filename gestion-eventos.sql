@@ -3,7 +3,7 @@ create database gestion_eventos_db;
 use gestion_eventos_db;
 
 create table Organizadores(
-	idOrganizador Integer auto_increment not null,
+	idOrganizador integer auto_increment not null,
     nombreOrganizador varchar(45) not null,
     correo varchar(128) not null,
     contrasena varchar(64) not null,
@@ -11,8 +11,8 @@ create table Organizadores(
 );
 
 create table Eventos (
-	idEvento Integer auto_increment not null,
-    idOrganizador Integer not null,
+	idEvento integer auto_increment not null,
+    idOrganizador integer not null,
     nombreEvento varchar(45) not null,
     descripcion varchar(88) not null,
     fechaEvento Date not null,
@@ -21,7 +21,7 @@ create table Eventos (
 );
 
 create table Usuarios(
-	idUsuario Integer auto_increment not null,
+	idUsuario integer auto_increment not null,
     nombreUsuario varchar(45) not null,
     correo varchar(128) not null,
     contrasena varchar(64) not null,

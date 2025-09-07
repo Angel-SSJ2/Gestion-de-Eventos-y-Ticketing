@@ -6,22 +6,22 @@ import lombok.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "Organizadores")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class UsuarioEntity {
+public class OrganizadorEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer idUsuario;
+    private Integer idOrganizador;
 
-    private String nombreUsuario;
+    private String nombreOrganizador;
 
     private String correo;
 
     private String contrasena;
 
-    @OneToMany(mappedBy = "usuario")
-    private List<TicketEntity> tickets;
+    @OneToMany(mappedBy = "organizador")
+    private List<EventoEntity> eventos;
 }

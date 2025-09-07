@@ -1,18 +1,18 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.entidad.TicketEntity;
-import org.DevBusters.gestion_eventos.Repository.ITicketRepository;
+import org.DevBusters.gestion_eventos.Entity.TicketEntity;
+import org.DevBusters.gestion_eventos.Repository.TicketRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
-
+import java.util.stream.Collectors;
 @Service
 public class TicketService implements ITicketService {
 
     @Autowired
-    private ITicketRepository ticketRepository;
+    private TicketRepository ticketRepository;
 
     @Override
     public TicketEntity crearTicket(TicketEntity ticket) {
