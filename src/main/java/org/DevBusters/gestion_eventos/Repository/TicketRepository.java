@@ -10,8 +10,8 @@ import java.util.Optional;
 public interface TicketRepository extends JpaRepository<TicketEntity, Integer> {
 
     // Método para encontrar un ticket por el ID del evento
-    Optional<TicketEntity> findByIdEvento(Integer idEvento);
+    Optional<TicketEntity> findByEvento_IdEvento(Integer idEvento);
 
     // Método para encontrar un ticket por el ID del usuario
-    Optional<TicketEntity> findByIdUsuario(Integer idUsuario);
+    Optional<TicketEntity> findByUsuario_IdUsuario(Integer idUsuario);
 }

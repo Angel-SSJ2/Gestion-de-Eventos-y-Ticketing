@@ -35,3 +35,5 @@ create table Tickets(
     estado enum('Vendido','Usado', 'Disponible') default 'Disponible',
     constraint pk_Ticket primary key (idTicket)
 );
+
+select * from Usuarios;

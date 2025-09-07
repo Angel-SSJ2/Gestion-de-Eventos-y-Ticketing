@@ -38,7 +38,7 @@ public class LoginController implements Serializable {
             try {
                 FacesContext.getCurrentInstance()
                         .getExternalContext()
-                        .redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/home.xhtml");
+                        .redirect(FacesContext.getCurrentInstance().getExternalContext().getRequestContextPath() + "/index.xhtml");
             } catch (IOException e) {
                 logger.error("Error al redirigir al usuario autenticado", e);
             }
@@ -65,7 +65,7 @@ public class LoginController implements Serializable {
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_INFO, "¡Bienvenido!", "Has iniciado sesión correctamente."));
 
-                return "home.xhtml?faces-redirect=true";
+                return "Eventos.xhtml?faces-redirect=true";
 
             } else {
                 logger.warn("Login fallido para: {}", nombreUsuario);
