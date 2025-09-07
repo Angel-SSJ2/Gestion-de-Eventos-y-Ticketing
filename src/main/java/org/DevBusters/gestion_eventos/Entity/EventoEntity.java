@@ -11,15 +11,12 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString(exclude = "tickets")
 public class EventoEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idEvento;
-
-    @ManyToOne
-    @JoinColumn(name = "idOrganizador", nullable = false)
-    private OrganizadorEntity organizador;
 
     private String nombreEvento;
 
