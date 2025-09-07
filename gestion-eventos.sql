@@ -12,7 +12,6 @@ create table Organizadores(
 
 create table Eventos (
 	idEvento integer auto_increment not null,
-    idOrganizador integer not null,
     nombreEvento varchar(45) not null,
     descripcion varchar(88) not null,
     fechaEvento Date not null,
@@ -32,8 +31,9 @@ create table Tickets(
 	idTicket integer auto_increment not null,
     idEvento integer not null,
     idUsuario integer not null,
-	codigoQr varchar(45) not null,
     precio decimal(10, 2) not null,
     estado enum('Vendido','Usado', 'Disponible') default 'Disponible',
     constraint pk_Ticket primary key (idTicket)
 );
+
+select * from Usuarios;
