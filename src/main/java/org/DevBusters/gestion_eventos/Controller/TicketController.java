@@ -8,7 +8,7 @@ import lombok.Data;
 import org.DevBusters.gestion_eventos.Entity.EventoEntity;
 import org.DevBusters.gestion_eventos.Entity.TicketEntity;
 import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
-import org.DevBusters.gestion_eventos.Enum
+import org.DevBusters.gestion_eventos.Enum;
 import org.DevBusters.gestion_eventos.GestorInicioSesion;
 import org.DevBusters.gestion_eventos.Repository.EventoRepository;
 import org.DevBusters.gestion_eventos.Repository.TicketRepository;
@@ -93,7 +93,7 @@ public class TicketController implements Serializable {
             nuevoTicket.setEvento(evento);
             nuevoTicket.setUsuario(usuario);
             nuevoTicket.setPrecio(precio);
-            nuevoTicket.setEstado(EstadoTicket.VENDIDO);
+            nuevoTicket.setEstado(Enum.VENDIDO);
 
             ticketRepository.save(nuevoTicket);
 
@@ -117,17 +117,17 @@ public class TicketController implements Serializable {
      * Validar ticket en la entrada
      */
     public void validarTicket() {
-        Optional<TicketEntity> ticketOpt = ticketService.getTicketById(Integer.parseInt(this.ticketId));
+        Optional<TicketEntity> ticketOpt = ticketService.buscarTicketPorId(Integer.parseInt(this.ticketId));
 
         if (ticketOpt.isPresent()) {
             TicketEntity ticket = ticketOpt.get();
 
-            if (ticket.getEstado() == EstadoTicket.USADO) {
+            if (ticket.getEstado() == Enum.USADO) {
                 this.resultadoValidacion = "El ticket ya ha sido validado.";
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_WARN, "Ticket Duplicado", this.resultadoValidacion));
             } else {
-                ticket.setEstado(EstadoTicket.USADO);
+                ticket.setEstado(Enum.USADO);
                 ticketService.guardarTicket(ticket);
                 this.resultadoValidacion = "El ticket es válido. Acceso concedido.";
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -143,6 +143,6 @@ public class TicketController implements Serializable {
     }
 
     public void buscarTicketParaMostrar(Integer id) {
-        this.ticketSeleccionado = ticketService.getTicketById(id).orElse(null);
+        this.ticketSeleccionado = ticketService.buscarTicketPorId(id).orElse(null);
     }
 }

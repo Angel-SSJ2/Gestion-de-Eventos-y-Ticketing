@@ -21,11 +21,9 @@ public class UsuarioService implements IUsuarioService {
         return usuario.orElse(null);
     }
 
-    // Buscar usuario por nombre de usuario
     @Override
-    public UsuarioEntity buscarPorUsername(String nombreUsuario) {
-        Optional<UsuarioEntity> usuario = usuarioRepository.findByNombreUsuario(nombreUsuario);
-        return usuario.orElse(null);
+    public Optional<UsuarioEntity> buscarPornombreUsuario(String nombreUsuario) {
+        return Optional.empty();
     }
 
     // Buscar usuario por ID
@@ -48,11 +46,16 @@ public class UsuarioService implements IUsuarioService {
         return usuarioRepository.save(usuario);
     }
 
-    // Validar existencia de nombre de usuario
     @Override
-    public boolean existeUsername(String nombreUsuario) {
+    public boolean existenombreUsuario(String nombreUsuario) {
         return usuarioRepository.existsByNombreUsuario(nombreUsuario);
     }
+
+    @Override
+    public boolean existeCorreo(String correo) {
+        return false;
+    }
+
 
     // Validar existencia de correo
     @Override

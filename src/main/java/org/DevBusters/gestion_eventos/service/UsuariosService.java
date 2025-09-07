@@ -1,5 +1,6 @@
 package org.DevBusters.gestion_eventos.Service;
 
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 import org.DevBusters.gestion_eventos.Entity.Usuarios;
 import org.DevBusters.gestion_eventos.Repository.UsuariosRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,24 +15,24 @@ public class UsuariosService implements IUsuariosService{
     private UsuariosRepository usuariosRepository;
 
     @Override
-    public List<Usuarios> listaUsuarios() {
-        List<Usuarios> listaUsuarios = usuariosRepository.findAll();
+    public List<UsuarioEntity> listaUsuarios() {
+        List<UsuarioEntity> listaUsuarios = usuariosRepository.findAll();
         return listaUsuarios;
     }
 
     @Override
-    public Usuarios buscarPorId(Integer id) {
-        Usuarios usuarios = usuariosRepository.findById(id).orElse(null);
+    public UsuarioEntity buscarPorId(Integer id) {
+        UsuarioEntity usuarios = usuariosRepository.findById(id).orElse(null);
         return usuarios;
     }
 
     @Override
-    public void guardarUsuarios(Usuarios usuarios) {
+    public void guardarUsuarios(UsuarioEntity usuarios) {
         usuariosRepository.save(usuarios);
     }
 
     @Override
-    public void eliminarUsuarios(Usuarios usuarios) {
+    public void eliminarUsuarios(UsuarioEntity usuarios) {
         usuariosRepository.delete(usuarios);
     }
 }

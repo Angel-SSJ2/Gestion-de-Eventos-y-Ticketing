@@ -37,10 +37,19 @@ public class TicketService implements ITicketService {
         return ticketRepository.save(ticket);
     }
 
-    // Buscar ticket por ID
     @Override
-    public Optional<TicketEntity> getTicketById(Integer id) {
-        return ticketRepository.findById(id);
+    public TicketEntity crearTicket(TicketEntity ticket) {
+        return null;
+    }
+
+    @Override
+    public Optional<TicketEntity> buscarTicketPorId(Integer id) {
+        return Optional.empty();
+    }
+
+    @Override
+    public List<TicketEntity> buscarTodos() {
+        return List.of();
     }
 
     // Método adicional para eliminar ticket
@@ -65,11 +74,5 @@ public class TicketService implements ITicketService {
         nuevoTicket.setEstado(Enum.VENDIDO);
 
         return ticketRepository.save(nuevoTicket);
-    }
-
-    // Método placeholder para validar QR
-    @Override
-    public Map<String, Object> validarTicketPorQr(String codigoQr) {
-        return Map.of();
     }
 }
