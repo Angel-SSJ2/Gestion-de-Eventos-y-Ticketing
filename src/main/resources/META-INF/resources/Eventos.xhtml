@@ -8,17 +8,83 @@
     </h:head>
     <h:body>
         <div class="card">
+            <h:form id="formulario-eventos">
+                <p:growl id="mensaje-emergente" showDetails="true"/>
+
+                <div>
+                    <p:menubar>
+                        <p:menuitem value="Agregar" icon="pi pi-fw pi-plus"
+                                    actionListener="#{eventoController.agregarEvento}"
+                                    update=":formulario-modal:ventana-evento"
+                                    oncomplete="PF('ventanaModalEventos').show()"/>
+                        <p:menuitem value="Historial Tickets" icon="pi pi-ticket"
+                                    onclick="window.location.href='historialTickets.xhtml'"/>
+                    </p:menubar>
+                </div>
+
+                <!--tabla de eventos-->
+                <div class="card">
+                    <p:dataTable value="#{eventoController.listaEventos}" var="eventos"
+                                 id="tabla-eventos" widgetVar="eventoTabla">
+
+                        <!--Encabezado de la tabla-->
+                        <f:facet name="header">
+                            <div class="flex justify-content-center
+                                        flex-wrap card-container yellow-container">
+                                <div class="flex align-items-center justify-content-center
+                                            w-20rem h4rem bg-yellom-500 font-bold m-2
+                                            text-gray-900 border-round">
+                                    <h3>Registro de Eventos</h3>
+                                </div>
+                            </div>
+                        </f:facet>
+
+                        <!--Columnas y datos de la tabla-->
+                            <p:column headerText="ID">
+                                <h:outputText value="#{eventos.idEvento}"/>
+                            </p:column>
+                            <p:column headerText="NOMBRE EVENTO">
+                                <h:outputText value="#{eventos.nombreEvento}"/>
+                            </p:column>
+                            <p:column headerText="DESCRIPCION">
+                                <h:outputText value="#{eventos.descripcion}"/>
+                            </p:column>
+                            <p:column headerText="FECHA">
+                                <h:outputText value="#{eventos.fechaEvento}"/>
+                            </p:column>
+                            <p:column headerText="UBICACION">
+                                <h:outputText value="#{eventos.ubicacion}"/>
+                            </p:column>
+
+                        <p:column>
+                            <p:commandButton value="Editar" icon="pi pi-pencil"
+                                             update=":formulario-modal:ventana-evento"
+                                             process="@this"
+                                             oncomplete="PF('ventanaModalEventos').show()"
+                                             class="ui-button-primary"
+                                             style="margin-right:.5rem">
+                                <f:setPropertyActionListener
+                                        value="#{eventos}"
+                                        target="#{eventoController.evento}"/>
+                            </p:commandButton>
+                            <p:commandButton value="Eliminar" icon="pi pi-trash"
+                                             class="ui-button-danger"
+                                             process="@this"
+                                             oncomplete="PF('ventanaEliminarEvento').show()">
+                                <f:setPropertyActionListener
+                                        value="#{eventos}"
+                                        target="#{eventoController.evento}"/>
+                            </p:commandButton>
+                        </p:column>
+                    </p:dataTable>
+                </div>
+            </h:form>
+
 
             <!--Formulario para agregar Eventos-->
-            <h:form id="formulario_modal">
+            <h:form id="formulario-modal">
                 <p:dialog header="Detalle Eventos" showEffect="fade" modal="true" widgetVar="ventanaModalEventos" responsive="true">
                     <p:outputPanel id="ventana-evento" class="ui_fluid">
-                        <div class="field">
-                            <p:outputLabel for="idOrganizador">ID Organizador</p:outputLabel>
-                            <p:inputText id="idOrganizador"
-                                         value="#{eventoController.evento.idOrganizador}"
-                                         required="true"/>
-                        </div>
                         <div class="field">
                             <p:outputLabel for="nombreEvento">Nombre Evento</p:outputLabel>
                             <p:inputText id="nombreEvento"
@@ -49,9 +115,26 @@
                     <f:facet name="footer">
                         <p:commandButton value="Guardar" icon="pi pi-check"
                                          process="ventana-evento @this"
-                                         actionListener="#{eventoController.guardarEvento}"/>
+                                         actionListener="#{eventoController.guardarEvento}"
+                                         update=":formulario-eventos:tabla-eventos :formulario-modal:ventana-evento"
+                                         oncomplete="PF('ventanaModalEventos').hide()"/>
+                        <p:commandButton value="Cancelar" icon="pi pi-times"
+                                         oncomplete="PF('ventanaModalEventos').hide()"
+                                         class="ui-button-secondary" type="button"/>
                     </f:facet>
                 </p:dialog>
+                <p:confirmDialog widgetVar="ventanaEliminarEvento"
+                                 showEffect="fade" width="300"
+                                 message="¿Estas seguro de eliminar este evento?"
+                                 header="Confirmar" severity="warn">
+                    <p:commandButton value="Si" icon="pi pi-check"
+                                     process="@this"
+                                     actionListener="#{eventoController.eliminarEvento}"
+                                     oncomplete="PF('ventanaEliminarEvento').hide()"/>
+                    <p:commandButton value="No" icon="pi pi-times"
+                                     onclick="PF('ventanaEliminarEvento').hide()"
+                                     styleClass="ui-button-secondary" type="button"/>
+                </p:confirmDialog>
             </h:form>
         </div>
     </h:body>

@@ -1,12 +1,12 @@
 package org.DevBusters.gestion_eventos.Service;
 
-import org.DevBusters.gestion_eventos.Entity.Usuarios;
+import org.DevBusters.gestion_eventos.Entity.UsuarioEntity;
 
 import java.util.List;
 
 public interface IUsuariosService {
-    public List<Usuarios> listaUsuarios();
-    public Usuarios buscarPorId(Integer id);
-    public void guardarUsuarios(Usuarios usuarios);
-    public void eliminarUsuarios(Usuarios usuarios);
+    public List<UsuarioEntity> listaUsuarios();
+    public UsuarioEntity buscarPorId(Integer id);
+    public void guardarUsuarios(UsuarioEntity usuarios);
+    public void eliminarUsuarios(UsuarioEntity usuarios);
 }
