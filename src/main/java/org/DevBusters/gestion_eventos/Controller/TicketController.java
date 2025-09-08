@@ -4,6 +4,7 @@ import jakarta.annotation.PostConstruct;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.faces.view.ViewScoped;
+import jakarta.inject.Named;
 import lombok.Data;
 import org.DevBusters.gestion_eventos.Entity.EventoEntity;
 import org.DevBusters.gestion_eventos.Entity.TicketEntity;
@@ -20,8 +21,9 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Optional;
-
+@Named
 @Component("ticketController")
 @ViewScoped
 @Data
@@ -85,7 +87,7 @@ public class TicketController implements Serializable {
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Debe seleccionar un evento."));
                 return;
             }
-            nuevoTicket.setEstado(Enum.VENDIDO);
+            nuevoTicket.setEstado(Enum.Vendido);
 
             ticketRepository.save(nuevoTicket);
 
@@ -113,12 +115,12 @@ public class TicketController implements Serializable {
         if (ticketOpt.isPresent()) {
             TicketEntity ticket = ticketOpt.get();
 
-            if (ticket.getEstado() == Enum.USADO) {
+            if (ticket.getEstado() == Enum.Usado) {
                 this.resultadoValidacion = "El ticket ya ha sido validado.";
                 FacesContext.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_WARN, "Ticket Duplicado", this.resultadoValidacion));
             } else {
-                ticket.setEstado(Enum.USADO);
+                ticket.setEstado(Enum.Usado);
                 ticketService.guardarTicket(ticket);
                 this.resultadoValidacion = "El ticket es válido. Acceso concedido.";
                 FacesContext.getCurrentInstance().addMessage(null,
@@ -136,4 +138,15 @@ public class TicketController implements Serializable {
     public void buscarTicketParaMostrar(Integer id) {
         this.ticketSeleccionado = ticketService.buscarTicketPorId(id).orElse(null);
     }
+
+    private List<TicketEntity> historialUsuario;
+
+    public List<TicketEntity> getHistorialUsuario() {
+        // opcional: cargar los tickets del usuario logueado
+        if (historialUsuario == null && gestorInicioSesion.getUsuario() != null) {
+            historialUsuario = ticketRepository.findByUsuario(gestorInicioSesion.getUsuario());
+        }
+        return historialUsuario;
+    }
+
 }

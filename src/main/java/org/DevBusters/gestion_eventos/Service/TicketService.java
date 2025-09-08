@@ -71,7 +71,7 @@ public class TicketService implements ITicketService {
         nuevoTicket.setEvento(eventoOpt.get());
         nuevoTicket.setUsuario(usuarioOpt.get());
         nuevoTicket.setPrecio(precio);
-        nuevoTicket.setEstado(Enum.VENDIDO);
+        nuevoTicket.setEstado(Enum.Vendido);
 
         return ticketRepository.save(nuevoTicket);
     }

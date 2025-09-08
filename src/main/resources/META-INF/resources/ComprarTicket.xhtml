@@ -11,6 +11,13 @@
             <p:panel header="Comprar Ticket">
                 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/>
 
+                <div>
+                    <p:menubar>
+                        <p:menuitem value="Historial Tickets" icon="pi pi-ticket"
+                                    onclick="window.location.href='historialCompras.xhtml'"/>
+                    </p:menubar>
+                </div>
+
                 <h:panelGrid columns="2" cellpadding="5">
 
                     <p:outputLabel for="precio" value="Precio del Ticket:"/>
