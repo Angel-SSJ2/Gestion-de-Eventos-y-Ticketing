@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<h:html xmlns:h = "http://xmlns.jcp.org/jsf/html"
+        xmlns:f = "http://xmlns.jcp.org/jsf/core"
+        xmlns:p = "http://primefaces.org/ui">
+    <h:head>
+        <link rel="stylesheet" href="https://unpkg.com/primeflex@latest/primeflex.css"/>
+        <title>Gestión de Eventos y Ticketing</title>
+    </h:head>
+    <h:body style="background: linear-gradient(135deg, #1e3a8a, #4f46e5); color: #ffffff;">
+        <div class="flex flex-column align-items-center justify-content-center min-h-screen p-5">
+            <div class="text-center">
+                <h1 class="text-5xl font-bold mb-3">Gestión de Eventos</h1>
+                <p class="text-xl mb-5">Tu plataforma para crear, gestionar y descubrir eventos increíbles.</p>
+            </div>
+
+            <div class="flex flex-column gap-3">
+                <p:commandButton value="Regístrate" styleClass="p-button-rounded p-button-lg" onclick="window.location.href='Registro.xhtml'"/>
+                <p:commandButton value="Regístrate como Organizador" styleClass="p-button-rounded p-button-lg" onclick="window.location.href='RegistroOrganizador.xhtml'"/>
+                <p:commandButton value="Inicia Sesión" styleClass="p-button-rounded p-button-lg" onclick="window.location.href='login.xhtml'"/>
+            </div>
+        </div>
+    </h:body>
+</h:html>

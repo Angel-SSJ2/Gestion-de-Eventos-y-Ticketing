@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<h:html xmlns:h="http://xmlns.jcp.org/jsf/html"
+        xmlns:f="http://xmlns.jcp.org/jsf/core"
+        xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Mostrar Ticket</title>
+    </h:head>
+    <h:body>
+        <h:form>
+            <p:panel header="Buscar Ticket">
+                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <p:outputLabel for="ticketId" value="ID del Ticket:" />
+                    <p:inputText id="ticketId"
+                                 value="#{ticketController.ticketId}"
+                                 required="true"
+                                 requiredMessage="Por favor, ingrese el ID del ticket." />
+                </h:panelGrid>
+
+                <p:commandButton value="Buscar Ticket"
+                                 action="#{ticketController.buscarTicketParaMostrar(ticketController.ticketId)}"
+                                 update="@form" />
+            </p:panel>
+
+            <p:panel id="ticketDetails" header="Detalles del Ticket" style="margin-top:20px;"
+                     rendered="#{not empty ticketController.ticketSeleccionado}">
+
+                <h:panelGrid columns="2" cellpadding="5">
+                    <h:outputText value="ID del Ticket:" style="font-weight:bold;" />
+                    <h:outputText value="#{ticketController.ticketSeleccionado.idTickets}" />
+
+                    <h:outputText value="Precio:" style="font-weight:bold;" />
+                    <h:outputText value="#{ticketController.ticketSeleccionado.precio}" />
+
+                    <h:outputText value="Estado:" style="font-weight:bold;" />
+                    <h:outputText value="#{ticketController.ticketSeleccionado.estado}" />
+
+                    <h:outputText value="Comprado por:" style="font-weight:bold;" />
+                    <h:outputText value="#{ticketController.ticketSeleccionado.usuario.nombreUsuario}" />
+                </h:panelGrid>
+            </p:panel>
+        </h:form>
+    </h:body>
+</h:html>
